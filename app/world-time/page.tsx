@@ -4,10 +4,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { getSupportedTimeZones, timeZoneToLabel } from '@/utils/time'
 
 function ClockCard({ tz }: { tz: string }) {
-	const [now, setNow] = useState(new Date())
-	useEffect(() => { const id = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(id) }, [])
-	const time = useMemo(() => new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz }).format(now), [now, tz])
-	const date = useMemo(() => new Intl.DateTimeFormat('he-IL', { year: 'numeric', month: 'long', day: '2-digit', weekday: 'long', timeZone: tz }).format(now), [now, tz])
+	const [now, setNow] = useState<Date | null>(null)
+	useEffect(() => { setNow(new Date()); const id = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(id) }, [])
+	const time = now ? new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz }).format(now) : '— — : — — : — —'
+	const date = now ? new Intl.DateTimeFormat('he-IL', { year: 'numeric', month: 'long', day: '2-digit', weekday: 'long', timeZone: tz }).format(now) : ''
 	return (
 		<div className="card">
 			<div className="flex justify-between items-center mb-2">
@@ -23,10 +23,15 @@ function ClockCard({ tz }: { tz: string }) {
 const STORAGE_KEY = 'world-time:tzs:v1'
 
 export default function WorldTimePage() {
-	const userTZ = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, [])
+	const [userTZ, setUserTZ] = useState('')
 	const [timeZones, setTimeZones] = useState<string[]>([])
-	const [allTZ] = useState<string[]>(getSupportedTimeZones())
+	const [allTZ, setAllTZ] = useState<string[]>([])
 	const [newTZ, setNewTZ] = useState('')
+
+	useEffect(() => {
+		setAllTZ(getSupportedTimeZones())
+		setUserTZ(Intl.DateTimeFormat().resolvedOptions().timeZone)
+	}, [])
 
 	useEffect(() => {
 		try {
@@ -36,8 +41,7 @@ export default function WorldTimePage() {
 				return
 			}
 		} catch {}
-		// default list: user + 3 popular
-		setTimeZones([userTZ, 'Europe/London', 'America/New_York', 'Asia/Tokyo'])
+		if (userTZ) setTimeZones([userTZ, 'Europe/London', 'America/New_York', 'Asia/Tokyo'])
 	}, [userTZ])
 
 	useEffect(() => {
@@ -63,7 +67,7 @@ export default function WorldTimePage() {
 				<div className="form-row">
 					<label className="form-col">
 						<span>בחר אזור זמן</span>
-						<select className="select" value={newTZ} onChange={e => setNewTZ(e.target.value)} aria-label="בחר אזור זמן">
+						<select className="select" value={newTZ} onChange={e => setNewTZ(e.target.value)} aria-label="בחר אזור זמן" disabled={allTZ.length === 0}>
 							<option value="">בחר...</option>
 							{allTZ.map(tz => (
 								<option key={tz} value={tz}>{tz}</option>
@@ -72,7 +76,7 @@ export default function WorldTimePage() {
 					</label>
 				</div>
 				<div className="mt-4">
-					<button className="btn btn-primary" onClick={addTZ}>הוסף שעון</button>
+					<button className="btn btn-primary" onClick={addTZ} disabled={!newTZ}>הוסף שעון</button>
 				</div>
 			</div>
 

@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			</head>
 			<body className="font-hebrew">
 				<Nav />
-				<main className="container p-8">
+				<main className="main-content">
 					{children}
 				</main>
 			</body>

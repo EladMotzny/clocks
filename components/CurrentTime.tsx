@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function formatTime(date: Date, locale: string, timeZone?: string) {
 	return new Intl.DateTimeFormat(locale, {
@@ -17,11 +17,13 @@ function formatDate(date: Date, locale: string, timeZone?: string) {
 }
 
 export default function CurrentTime() {
-	const [now, setNow] = useState(new Date())
-	const userTimeZone = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, [])
+	const [now, setNow] = useState<Date | null>(null)
+	const [userTimeZone, setUserTimeZone] = useState<string>('')
 	const locale = 'he-IL'
 
 	useEffect(() => {
+		setUserTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone)
+		setNow(new Date())
 		const id = setInterval(() => setNow(new Date()), 1000)
 		return () => clearInterval(id)
 	}, [])
@@ -29,11 +31,13 @@ export default function CurrentTime() {
 	return (
 		<div className="animate-fade-in">
 			<div className="text-center">
-				<div className="badge mb-4">אזור זמן: {userTimeZone}</div>
+				{userTimeZone && <div className="badge mb-4">אזור זמן: {userTimeZone}</div>}
 				<div className="clock-display" aria-live="polite" aria-atomic="true">
-					{formatTime(now, locale, userTimeZone)}
+					{now ? formatTime(now, locale, userTimeZone || undefined) : '— — : — — : — —'}
 				</div>
-				<div className="text-secondary">{formatDate(now, locale, userTimeZone)}</div>
+				<div className="text-secondary">
+					{now ? formatDate(now, locale, userTimeZone || undefined) : ''}
+				</div>
 			</div>
 		</div>
 	)

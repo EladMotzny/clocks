@@ -5,7 +5,7 @@ import CurrentTime from '@/components/CurrentTime'
 
 export default function Home() {
 	return (
-		<div className="min-h-screen bg-background-primary">
+		<div className="min-h-screen">
 			<div className="text-center mb-8">
 				<h1 className="text-4xl font-bold mb-4">שעון נוכחי</h1>
 				<p className="text-lg text-secondary">השעה הנוכחית לפי המיקום שלך</p>
@@ -15,7 +15,7 @@ export default function Home() {
 				<CurrentTime />
 			</div>
 
-			<div className="grid grid-cols-4 gap-6 mt-12">
+			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12">
 				<Link href="/stopwatch" className="card text-center transition-transform hover-scale">
 					<h3 className="text-xl font-semibold mb-2">סטופר</h3>
 					<p className="text-sm text-secondary">מדידת זמן מדויקת</p>
