@@ -4,8 +4,8 @@ import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
 	title: 'שעונים - Clock Website',
-	description: 'אתר שעונים מקיף עם טיימר, סטופר, אזעקה ועוד',
-	keywords: 'שעון, טיימר, סטופר, אזעקה, זמן עולמי',
+	description: 'אתר שעונים מקיף עם טיימר, סטופר, שעון מעורר ועוד',
+	keywords: 'שעון, טיימר, סטופר, שעון מעורר, זמן עולמי',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

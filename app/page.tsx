@@ -25,7 +25,7 @@ export default function Home() {
 					<p className="text-sm text-secondary">הגדרת זמן מונה לאחור</p>
 				</Link>
 				<Link href="/alarm" className="card text-center transition-transform hover-scale">
-					<h3 className="text-xl font-semibold mb-2">אזעקה</h3>
+					<h3 className="text-xl font-semibold mb-2">שעון מעורר</h3>
 					<p className="text-sm text-secondary">הגדרת התראה</p>
 				</Link>
 				<Link href="/world-time" className="card text-center transition-transform hover-scale">
