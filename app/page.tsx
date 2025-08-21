@@ -1,13 +1,16 @@
-'use client'
-
 import Link from 'next/link'
 import CurrentTime from '@/components/CurrentTime'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'שעון מקומי | אתר השעונים'
+}
 
 export default function Home() {
 	return (
 		<div className="min-h-screen">
 			<div className="text-center mb-8">
-				<h1 className="text-4xl font-bold mb-4">שעון נוכחי</h1>
+				<h1 className="text-4xl font-bold mb-4">שעון מקומי</h1>
 				<p className="text-lg text-secondary">השעה הנוכחית לפי המיקום שלך</p>
 			</div>
 

@@ -3,9 +3,12 @@ import './globals.css'
 import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
-	title: 'שעונים - Clock Website',
+	title: { 
+		template: '%s | אתר השעונים',
+		default: 'אתר השעונים' 
+	},
 	description: 'אתר שעונים מקיף עם טיימר, סטופר, שעון מעורר ועוד',
-	keywords: 'שעון, טיימר, סטופר, שעון מעורר, זמן עולמי',
+	keywords: 'שעון, טיימר, סטופר, שעון מעורר, זמן עולמי, פומודורו',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

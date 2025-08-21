@@ -9,11 +9,11 @@ export default function Nav() {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
 	const links = [
-		{ href: '/', label: 'שעון נוכחי', icon: '🕐' },
+		{ href: '/', label: 'שעון מקומי', icon: '🕐' },
 		{ href: '/stopwatch', label: 'סטופר', icon: '⏱️' },
 		{ href: '/timer', label: 'טיימר', icon: '⏰' },
 		{ href: '/alarm', label: 'אזעקה', icon: '🔔' },
-		{ href: '/world-time', label: 'זמן עולמי', icon: '🌍' },
+		{ href: '/world-time', label: 'שעון עולמי', icon: '🌍' },
 		{ href: '/time-converter', label: 'ממיר זמן', icon: '🔄' },
 		{ href: '/pomodoro', label: 'פומודורו', icon: '🍅' },
 	]
