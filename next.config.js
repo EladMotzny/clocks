@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App Router is enabled by default in Next.js 13+
-  // RTL support is handled via CSS and HTML dir attribute
+  //TODO: These settings are for GitHub Pages. When hosting to a different platform I will need to change it.
+  basePath: "/clocks",
+  output: "export",  // <=== enables static exports
+  reactStrictMode: true,
 }
 
 module.exports = nextConfig
