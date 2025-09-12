@@ -2,6 +2,8 @@
 
 A comprehensive clock website built with Next.js, featuring multiple time-related tools with Hebrew RTL support.
 
+[Here is the link to the website](https://eladmotzny.github.io/clocks/)
+
 ## Features / תכונות
 
 ### 🕐 Current Time / שעון נוכחי
@@ -81,58 +83,4 @@ npm run build
 # Start production server
 npm start
 ```
-
-## Project Structure / מבנה הפרויקט
-
-```
-clocks/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout with RTL support
-│   ├── page.tsx           # Home page with current time
-│   ├── stopwatch/         # Stopwatch functionality
-│   ├── timer/             # Countdown timer
-│   ├── alarm/             # Alarm clock
-│   ├── world-time/        # World time display
-│   ├── time-converter/    # Timezone converter
-│   ├── pomodoro/          # Pomodoro technique timer
-│   └── globals.css        # Global styles and utilities
-├── components/            # Reusable components
-│   ├── Nav.tsx           # Navigation component
-│   └── CurrentTime.tsx   # Current time display
-├── utils/                 # Utility functions
-│   ├── time.ts           # Time formatting and calculations
-│   └── audio.ts          # Audio and vibration helpers
-└── package.json          # Dependencies and scripts
-```
-
-## Accessibility / נגישות
-
-- **RTL Support**: Full right-to-left layout for Hebrew
-- **Screen Readers**: Proper ARIA labels and live regions
-- **Keyboard Navigation**: All interactive elements are keyboard accessible
-- **Color Contrast**: High contrast ratios for readability
-- **Responsive Design**: Works on all device sizes
-
-## Browser Support / תמיכה בדפדפנים
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Contributing / תרומה
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License / רישיון
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-**Note**: This website is designed with Hebrew users in mind but works for all users. The interface is in Hebrew with RTL layout, but the functionality is universal.
 
