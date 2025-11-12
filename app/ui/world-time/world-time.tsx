@@ -1,7 +1,13 @@
 "use client"
 
 import { useEffect, useMemo, useState } from 'react'
-import { getSupportedTimeZones, timeZoneToLabel } from '@/utils/time'
+import { getSupportedTimeZones, timeZoneToLabel, timeZoneToHebrew } from '@/utils/time'
+import Select from 'react-select'
+
+interface TimeZoneOption {
+	value: string
+	label: string
+}
 
 function ClockCard({ tz }: { tz: string }) {
 	const [now, setNow] = useState<Date | null>(null)
@@ -11,7 +17,7 @@ function ClockCard({ tz }: { tz: string }) {
 	return (
 		<div className="card">
 			<div className="flex justify-between items-center mb-2">
-				<h3 className="text-xl font-semibold">{timeZoneToLabel(tz)}</h3>
+				<h3 className="text-xl font-semibold">{timeZoneToHebrew(tz)}</h3>
 				<span className="badge">{tz}</span>
 			</div>
 			<div className="timer-display">{time}</div>
@@ -26,7 +32,7 @@ export function WorldTimePage() {
 	const [userTZ, setUserTZ] = useState('')
 	const [timeZones, setTimeZones] = useState<string[]>([])
 	const [allTZ, setAllTZ] = useState<string[]>([])
-	const [newTZ, setNewTZ] = useState('')
+	const [newTZ, setNewTZ] = useState<TimeZoneOption | null>(null)
 
 	useEffect(() => {
 		setAllTZ(getSupportedTimeZones())
@@ -49,13 +55,49 @@ export function WorldTimePage() {
 	}, [timeZones])
 
 	function addTZ() {
-		if (!newTZ || timeZones.includes(newTZ)) return
-		setTimeZones([newTZ, ...timeZones])
-		setNewTZ('')
+		if (!newTZ || timeZones.includes(newTZ.value)) return
+		setTimeZones([newTZ.value, ...timeZones])
+		setNewTZ(null)
 	}
 
 	function removeTZ(tz: string) {
 		setTimeZones(timeZones.filter(t => t !== tz))
+	}
+
+	const timezoneOptions: TimeZoneOption[] = allTZ.map(tz => ({
+		value: tz,
+		label: timeZoneToHebrew(tz)
+	}))
+
+	const customStyles = {
+		control: (provided: any) => ({
+			...provided,
+			backgroundColor: 'var(--background-primary)',
+			borderColor: 'var(--border-color)',
+			'&:hover': {
+				borderColor: 'var(--border-color)',
+			},
+		}),
+		menu: (provided: any) => ({
+			...provided,
+			backgroundColor: 'var(--background-primary)',
+			direction: 'rtl',
+		}),
+		option: (provided: any, state: any) => ({
+			...provided,
+			backgroundColor: state.isFocused ? 'var(--background-tertiary)' : 'transparent',
+			color: 'var(--text-primary)',
+			direction: 'rtl',
+			textAlign: 'right',
+		}),
+		singleValue: (provided: any) => ({
+			...provided,
+			color: 'var(--text-primary)',
+		}),
+		input: (provided: any) => ({
+			...provided,
+			color: 'var(--text-primary)',
+		}),
 	}
 
 	return (
@@ -67,12 +109,17 @@ export function WorldTimePage() {
 				<div className="form-row">
 					<label className="form-col">
 						<span>בחר אזור זמן</span>
-						<select className="select" value={newTZ} onChange={e => setNewTZ(e.target.value)} aria-label="בחר אזור זמן" disabled={allTZ.length === 0}>
-							<option value="">בחר...</option>
-							{allTZ.map(tz => (
-								<option key={tz} value={tz}>{tz}</option>
-							))}
-						</select>
+						<Select
+							value={newTZ}
+							onChange={(selected) => setNewTZ(selected as TimeZoneOption)}
+							options={timezoneOptions}
+							isSearchable={true}
+							isDisabled={allTZ.length === 0}
+							placeholder="בחר..."
+							styles={customStyles}
+							className="react-select-container"
+							classNamePrefix="react-select"
+						/>
 					</label>
 				</div>
 				<div className="mt-4">

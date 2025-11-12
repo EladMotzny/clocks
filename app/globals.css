@@ -482,3 +482,45 @@ p {
 }
 
 /* Clock specific styles */
+
+/* React Select customization for RTL and Hebrew */
+.react-select-container {
+  width: 100%;
+  font-family: var(--font-family);
+  direction: rtl;
+  text-align: right;
+}
+
+.react-select__control {
+  direction: rtl !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.react-select__value-container {
+  text-align: right !important;
+}
+
+.react-select__single-value {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.react-select__input-container {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.react-select__menu {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.react-select__option {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.react-select__indicator {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
